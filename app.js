@@ -2,33 +2,16 @@ var express = require('express'),
   app = express(),
   path = require('path'),
   http = require('http'),
-  bodyParser = require('body-parser'),
+  data = require('./routes/data'),
   Client = require('xtuple-rest-client');
 
-app.set('port', process.env.PORT || 3000);
+app.locals.title = "xTuple ToDos App";
+app.use(express.static(__dirname + '/public'));
+app.set('views', path.join( __dirname, "views"));
 app.set('view engine', 'ejs');
-app.use(bodyParser());
-app.locals.title = "xTuple REST To Do App";
-app.set("views", path.join( __dirname, "views"));
+app.set('port', process.env.PORT || 3000);
 
-app.get('/', function (req, res){
-  new Client(function (client) {
-    client.query({
-      type: 'ToDo',
-      method: 'list',
-      params: { maxResults: 50 },
-      callback: function (err, result) {
-        if (err) {
-          res.send('Error:', err);
-        }
-        if (result) {
-          app.locals.todos = result.data.data;
-          res.render("index");
-        }
-      }
-    });
-  });
-});
+app.get('/todos', data.getAll);
 
 app.get("/add_todo", function (req, res){
   new Client(function (client) {

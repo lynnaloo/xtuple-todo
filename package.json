@@ -1,12 +1,13 @@
 {
-  "name": "xtuple-todo-example",
-  "version": "0.0.4",
-  "description": "ToDo example for xTuple REST Api",
-  "keywords": "xtuple, rest, api, oauth2, jwt",
+  "name": "xtuple-todos",
+  "version": "0.0.1",
+  "description": "ToDos Application using xTuple REST Api",
+  "keywords": "xtuple, rest, api, oauth2, jwt, todo",
   "main": "app.js",
   "dependencies": {
-    "express": "4.6.x",
+    "backbone": "^1.1.2",
     "ejs": "1.0.x",
+    "express": "4.6.x",
     "xtuple-rest-client": "0.0.x"
   },
   "devDependencies": {},
@@ -15,7 +16,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://www.github.com/xtuple/xtuple-nodejs-rest-client-example"
+    "url": "https://www.github.com/lynnaloo/xtuple-todos"
   },
   "author": "Linda Nichols",
   "license": "Apache"

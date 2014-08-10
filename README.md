@@ -17,32 +17,33 @@ need to connect to the xTuple REST API.
 
 ### Set your Private Key
 
-Convert your key.p12 file to key.pem and copy it to the `keys` folder:
+* Convert your key.p12 file to key.pem and copy it to the `keys` folder:
+    
+   `openssl pkcs12 -in keys/key.p12  -nocerts -nodes | openssl rsa -out keys/key.pem`
 
-`openssl pkcs12 -in keys/key.p12  -nocerts -nodes | openssl rsa -out keys/key.pem`
-
-Enter Import Password: 'notasecret'
+* Enter Import Password: 'notasecret'
 
 ### Setup Environment Variables
 
-`cp sample.env .env`
+* Copy `sample.env` to a new file called `.env`
 
 Open the .env file and change the information to match what was provided
 by the xTuple OAuth 2.0 extension.
 
+
+
 ### Run this Application
 
-Clone this repository and run `npm install`
+* Clone this repository and run `npm install`
 
-Install Bower
+* Run Bower
 
-   npm install bower -g
+    npm install bower -g
+    bower install
 
-Run `bower install`
+* To start the application, run `node app.js`
 
-To start the application, run `node app.js`
-
-Navigate to `http://localhost:3000` in your browser
+* Navigate to `http://localhost:3000` in your browser
 
 ### License
 

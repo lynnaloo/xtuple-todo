@@ -90,6 +90,7 @@ input[type="checkbox"] {
 #header {
 	padding-top: 15px;
 	border-radius: inherit;
+	background: rgba(0, 0, 0, 0.02);
 }
 
 #header:before {
@@ -110,11 +111,10 @@ input[type="checkbox"] {
 	border-top-right-radius: 1px;
 }
 
-#new-todo,
-.edit {
+#new-todo-date, #new-todo-name, .edit {
 	position: relative;
 	margin: 0;
-	width: 100%;
+	width: 50%;
 	font-size: 24px;
 	font-family: inherit;
 	line-height: 1.4em;
@@ -135,7 +135,7 @@ input[type="checkbox"] {
 	font-smoothing: antialiased;
 }
 
-#new-todo {
+#new-todo-date, #new-todo-name {
 	padding: 16px 16px 16px 60px;
 	border: none;
 	background: rgba(0, 0, 0, 0.02);
@@ -240,7 +240,7 @@ label[for='toggle-all'] {
 }
 
 #todo-list li label {
-  width: 300px;
+  width: 40%;
 	white-space: pre;
 	word-break: break-word;
 	padding: 15px 15px 15px 15px;

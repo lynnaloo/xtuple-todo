@@ -6,6 +6,7 @@
   "main": "app.js",
   "dependencies": {
     "backbone": "^1.1.2",
+    "body-parser": "^1.6.2",
     "ejs": "1.0.x",
     "express": "4.6.x",
     "xtuple-rest-client": "0.0.x"

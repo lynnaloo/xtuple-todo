@@ -12,8 +12,43 @@ app.ALL_TODOS = 'all';
 app.ACTIVE_TODOS = 'active';
 app.COMPLETED_TODOS = 'completed';
 var TodoItem = app.TodoItem;
+var ENTER_KEY = 13;
 
-var CommentList = React.createClass({
+// An example generic Mixin that you can add to any component that should
+// react to changes in a Backbone component. The use cases we've identified
+// thus far are for Collections -- since they trigger a change event whenever
+// any of their constituent items are changed there's no need to reconcile for
+// regular models. One caveat: this relies on getBackboneCollections() to
+// always return the same collection instances throughout the lifecycle of the
+// component. If you're using this mixin correctly (it should be near the top
+// of your component hierarchy) this should not be an issue.
+var BackboneMixin = {
+	componentDidMount: function () {
+		// Whenever there may be a change in the Backbone data, trigger a
+		// reconcile.
+		this.getBackboneCollections().forEach(function (collection) {
+			// explicitly bind `null` to `forceUpdate`, as it demands a callback and
+			// React validates that it's a function. `collection` events passes
+			// additional arguments that are not functions
+			collection.on('add remove change', this.forceUpdate.bind(this, null));
+		}, this);
+	},
+
+	componentWillUnmount: function () {
+		// Ensure that we clean up any dangling references when the component is
+		// destroyed.
+		this.getBackboneCollections().forEach(function (collection) {
+			collection.off(null, null, this);
+		}, this);
+	}
+};
+
+var ToDoList = React.createClass({
+    mixins: [BackboneMixin],
+		getBackboneCollections: function () {
+			return [this.props.data];
+		},
+
     getInitialState: function() {
       return {data: []};
     },
@@ -53,6 +88,17 @@ var CommentList = React.createClass({
       return false;
     },
 
+    toggleAll: function (event) {
+			var checked = event.target.checked;
+			this.props.todos.forEach(function (todo) {
+				if (checked) {
+          todo.set('status', 'C');
+        } else {
+          todo.set('status', 'N')
+        }
+			});
+		},
+
     edit: function (todo, callback) {
 			// refer to todoItem.jsx `handleEdit` for the reason behind the callback
 			this.setState({editing: todo.get('uuid')}, callback);
@@ -70,6 +116,12 @@ var CommentList = React.createClass({
     render: function() {
       var main, todoItems,
         todos = this.state.data;
+
+      var activeTodoCount = todos.reduce(function (accum, todo) {
+				return todo.get('status') === 'C' ? accum : accum + 1;
+			}, 0);
+
+			var completedCount = todos.length - activeTodoCount;
 
       if (todos.length) {
 
@@ -100,13 +152,18 @@ var CommentList = React.createClass({
         }, this);
 
         main = (
-          <section id='main'>
-            <input id='toggle-all' type='checkbox'/>
-            <ul id="todo-list">
-              {todoItems}
-            </ul>
-          </section>
-        );
+					<section id="main">
+						<input
+							id="toggle-all"
+							type="checkbox"
+							onChange={this.toggleAll}
+							checked={activeTodoCount === 0}
+						/>
+						<ul id="todo-list">
+							{todoItems}
+						</ul>
+					</section>
+				);
       }
 
       return (
@@ -134,6 +191,6 @@ var CommentList = React.createClass({
 });
 
 React.renderComponent(
-  <CommentList data={app.todos} />,
+  <ToDoList data={app.todos} />,
   document.getElementById('todoapp')
 );

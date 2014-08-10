@@ -24,18 +24,77 @@ exports.addTodo = function (req, res){
       type: 'ToDo',
       method: 'insert',
       params: {
-        dueDate: req.query.duedate,
-        name: req.query.name,
-        isActive:req.query.isActive,
-        status: req.query.status
+        dueDate: req.body.dueDate,
+        name: req.body.name,
+        isActive:req.body.isActive,
+        status: req.body.status
       },
       callback: function (err, result) {
         if (err) {
           res.send('Error:', err);
           return;
         }
-        justAdded = result.data.uuid;
-        //res.send('Inserted:', result.data.uuid);
+        console.log("Just created: " + result.data.id);
+      }
+    });
+  });
+};
+
+exports.deleteTodo = function (req, res){
+  console.log("trying to delete something");
+  new Client(function (client) {
+    client.query({
+      type: 'ToDo',
+      method: 'delete',
+      params: {
+        uuid: req.body.uuid
+      },
+      callback: function (err, result) {
+        if (err) {
+          res.send('Error:', err);
+          return;
+        }
+        console.log("Delete " + result);
+      }
+    });
+  });
+};
+
+exports.getTodo = function (req, res){
+  new Client(function (client) {
+    client.query({
+      type: 'ToDo',
+      method: 'get',
+      params: {uuid: req.query.id},
+      callback: function (err, result) {
+        if (err) {
+          res.send('Error:', err);
+          return;
+        }
+        res.send('To Do:', result);
+      }
+    });
+  });
+};
+
+exports.updateTodo = function (req, res){
+  new Client(function (client) {
+    client.query({
+      type: 'ToDo',
+      method: 'update',
+      params: {
+        uuid: req.body.uuid,
+        dueDate: req.body.dueDate,
+        name: req.body.name,
+        isActive:req.body.isActive,
+        status: req.body.status
+      },
+      callback: function (err, result) {
+        if (err) {
+          res.send('Error:', err);
+          return;
+        }
+        res.send('Updated To Do:', result);
       }
     });
   });

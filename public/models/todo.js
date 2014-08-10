@@ -7,45 +7,6 @@ var app = app || {};
 	// Store the original version of Backbone.sync
   var backboneSync = Backbone.sync;
 
-	Backbone.sync = function(method, model, options) {
-
-		options = options || {};
-
-		switch (method) {
-			case 'create':
-				var params = {
-					type: 'POST',
-					url: '/add',
-					contentType: 'application/json',
-					data: model,
-					dataType: 'json',
-				};
-				$.ajax(_.extend(params, options));
-				break;
-
-			case 'update':
-				backboneSync(method, model, options);
-				break;
-
-			case 'patch':
-				backboneSync(method, model, options);
-				break;
-
-			case 'delete':
-				backboneSync(method, model, options);
-				break;
-
-			case 'read':
-				backboneSync(method, model, options);
-				break;
-
-			default:
-				// Something probably went wrong
-				console.error('Unknown method:', method);
-				break;
-		}
-	};
-
 	// Todo Model
 	// ----------
 	app.Todo = Backbone.Model.extend({
@@ -54,6 +15,20 @@ var app = app || {};
       isActive: true,
       status: 'N'
     },
+
+		methodToURL: {
+			'read': '/todos',
+			'create': '/add',
+			'update': '/update',
+			'delete': '/delete'
+		},
+
+		sync: function(method, model, options) {
+			options = options || {};
+			options.url = model.methodToURL[method.toLowerCase()];
+
+			return Backbone.sync(method, model, options);
+		},
 
 		// Toggle the `completed` state of this todo item.
 		toggle: function () {

@@ -101,7 +101,7 @@ var ToDoList = React.createClass({
 
     edit: function (todo, callback) {
 			// refer to todoItem.jsx `handleEdit` for the reason behind the callback
-			this.setState({editing: todo.get('uuid')}, callback);
+			this.setState({editing: todo.id}, callback);
 		},
 
 		save: function (todo, text) {
@@ -139,12 +139,12 @@ var ToDoList = React.createClass({
         todoItems = shownTodos.map(function (todo) {
           return (
             <TodoItem
-              key={todo.get('uuid')}
+              key={todo.id}
               todo={todo}
 						  onToggle={todo.toggle.bind(todo)}
 						  onDestroy={todo.destroy.bind(todo, {})}
 						  onEdit={this.edit.bind(this, todo)}
-						  editing={this.state.editing === todo.get('uuid')}
+						  editing={this.state.editing === todo.id}
 						  onSave={this.save.bind(this, todo)}
 						  onCancel={this.cancel}
             />
@@ -180,6 +180,7 @@ var ToDoList = React.createClass({
             <input
               ref="newDateField"
               id="new-todo-date"
+							type="date"
               placeholder="By when?"
               onKeyDown={this.handleNewTodoKeyDown}
             />

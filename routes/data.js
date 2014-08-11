@@ -34,7 +34,6 @@ exports.addTodo = function (req, res){
           res.send('Error:', err);
           return;
         }
-        console.log("Just created: " + result.data.id);
       }
     });
   });
@@ -54,7 +53,6 @@ exports.deleteTodo = function (req, res){
           res.send('Error:', err);
           return;
         }
-        console.log("Deleted " + req.params.id);
       }
     });
   });
@@ -71,7 +69,9 @@ exports.getTodo = function (req, res){
           res.send('Error:', err);
           return;
         }
-        res.send('To Do:', result);
+        if (result) {
+          res.send(result);
+        }
       }
     });
   });
@@ -94,7 +94,6 @@ exports.updateTodo = function (req, res){
           res.send('Error:', err);
           return;
         }
-        res.send('Updated To Do:', result);
       }
     });
   });

@@ -46,8 +46,7 @@ app.TodoItem = React.createClass({
 
 		return (
 			<li className={React.addons.classSet({
-				completed: this.props.todo.get('status') === 'C',
-				editing: this.props.editing
+				completed: this.props.todo.get('status') === 'C'
 			})}>
 				<div className="view">
 					<input

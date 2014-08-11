@@ -36,7 +36,7 @@ var app = app || {};
 		// Toggle the `completed` state of this todo item.
 		toggle: function () {
       // this.save({
-      //status: this.get('status') === 'N' ? 'C' : 'N'
+      // status: this.get('status') === 'N' ? 'C' : 'N'
       // });
 		}
 

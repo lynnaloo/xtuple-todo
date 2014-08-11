@@ -1,6 +1,9 @@
 {
   "name": "xtuple-todo-example",
   "version": "0.0.6",
+  "engines": {
+    "node": "0.10.24"
+  },
   "description": "ToDos Application using xTuple REST Api",
   "keywords": "xtuple, rest, react, backbone, oauth2, jwt, todomvc",
   "main": "app.js",

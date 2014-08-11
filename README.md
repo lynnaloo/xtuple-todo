@@ -41,7 +41,7 @@ by the xTuple OAuth 2.0 extension.
     npm install bower -g
     bower install
 
-* To start the application, run `node app.js`
+* To start the application, run `npm start`
 
 * Navigate to `http://localhost:3000` in your browser
 

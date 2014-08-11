@@ -18,10 +18,10 @@ app.set('port', process.env.PORT || 3000);
 
 app.get('/todos', data.getAll);
 app.post('/add', data.addTodo);
-app.delete('/delete', data.deleteTodo);
+app.delete('/remove/:id', data.deleteTodo);
 app.get('/get', data.getTodo);
-app.post('/update', data.updateTodo);
+app.patch('/update', data.updateTodo);
 
 http.createServer(app).listen(app.get("port"), function () {
-  console.log("xTuple To Dos is running at localhost:", app.get("port"));
+  console.log("xTuple Todos is running at localhost:", app.get("port"));
 });

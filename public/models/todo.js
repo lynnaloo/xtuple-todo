@@ -17,23 +17,27 @@ var app = app || {};
 			'read': '/todos',
 			'create': '/add',
 			'update': '/update',
-			'delete': '/delete'
+			'delete': '/remove'
 		},
 
-		sync: function(method, model, options) {
-			console.log(method);
+    idAttribute: 'uuid',
 
+		sync: function(method, model, options) {
 			options = options || {};
 			options.url = model.methodToURL[method.toLowerCase()];
+
+      if (method.toLowerCase() === 'delete') {
+        options.url = options.url + '/' +  model.id;
+      }
 
 			return Backbone.sync(method, model, options);
 		},
 
 		// Toggle the `completed` state of this todo item.
 		toggle: function () {
-			this.save({
-				status: this.get('status') === 'N' ? 'C' : 'N'
-			});
+      // this.save({
+      //status: this.get('status') === 'N' ? 'C' : 'N'
+      // });
 		}
 
   });

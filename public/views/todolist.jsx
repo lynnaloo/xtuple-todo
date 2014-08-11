@@ -57,7 +57,7 @@ var ToDoList = React.createClass({
       var self = this;
 
       // TODO: create picker to set this value
-      //self.setState({nowShowing: app.ACTIVE_TODOS});
+      self.setState({nowShowing: app.ACTIVE_TODOS});
 
       this.props.data.fetch({
         success: function () {
@@ -89,14 +89,14 @@ var ToDoList = React.createClass({
     },
 
     toggleAll: function (event) {
-			var checked = event.target.checked;
-			this.props.todos.forEach(function (todo) {
-				if (checked) {
-          todo.set('status', 'C');
-        } else {
-          todo.set('status', 'N')
-        }
-			});
+			// var checked = event.target.checked;
+			// this.props.todos.forEach(function (todo) {
+			// 	if (checked) {
+      //     todo.set('status', 'C');
+      //   } else {
+      //     todo.set('status', 'N')
+      //   }
+			// });
 		},
 
     edit: function (todo, callback) {
@@ -142,7 +142,7 @@ var ToDoList = React.createClass({
               key={todo.get('uuid')}
               todo={todo}
 						  onToggle={todo.toggle.bind(todo)}
-						  onDestroy={todo.destroy.bind(todo)}
+						  onDestroy={todo.destroy.bind(todo, {})}
 						  onEdit={this.edit.bind(this, todo)}
 						  editing={this.state.editing === todo.get('uuid')}
 						  onSave={this.save.bind(this, todo)}

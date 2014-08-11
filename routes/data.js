@@ -41,20 +41,20 @@ exports.addTodo = function (req, res){
 };
 
 exports.deleteTodo = function (req, res){
-  console.log("trying to delete something");
   new Client(function (client) {
     client.query({
       type: 'ToDo',
       method: 'delete',
       params: {
-        uuid: req.body.uuid
+        uuid: req.params.id
       },
       callback: function (err, result) {
         if (err) {
+          console.log(err);
           res.send('Error:', err);
           return;
         }
-        console.log("Delete " + result);
+        console.log("Deleted " + req.params.id);
       }
     });
   });

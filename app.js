@@ -18,7 +18,7 @@ app.set('port', process.env.PORT || 3000);
 
 app.get('/todos', data.getAll);
 app.post('/add', data.addTodo);
-app.post('/delete', data.deleteTodo);
+app.delete('/delete', data.deleteTodo);
 app.get('/get', data.getTodo);
 app.post('/update', data.updateTodo);
 

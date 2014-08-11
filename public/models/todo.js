@@ -1,9 +1,6 @@
 /*global Backbone */
 var app = app || {};
 
-(function () {
-	'use strict';
-
 	// Store the original version of Backbone.sync
   var backboneSync = Backbone.sync;
 
@@ -24,6 +21,8 @@ var app = app || {};
 		},
 
 		sync: function(method, model, options) {
+			console.log(method);
+
 			options = options || {};
 			options.url = model.methodToURL[method.toLowerCase()];
 
@@ -49,5 +48,3 @@ var app = app || {};
 
 	// Create our global collection of **Todos**.
 	app.todos = new TodoCollection();
-
-})();

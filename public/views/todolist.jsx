@@ -57,7 +57,7 @@ var ToDoList = React.createClass({
       var self = this;
 
       // TODO: create picker to set this value
-      self.setState({nowShowing: app.ACTIVE_TODOS});
+      //self.setState({nowShowing: app.ACTIVE_TODOS});
 
       this.props.data.fetch({
         success: function () {
@@ -169,7 +169,7 @@ var ToDoList = React.createClass({
       return (
         <div>
           <header id="header">
-            <h1>xTuple To Dos</h1>
+            <h1>xTuple Todos</h1>
             <input
               ref="newNameField"
               id="new-todo-name"

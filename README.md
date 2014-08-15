@@ -18,7 +18,7 @@ need to connect to the xTuple REST API.
 ### Set your Private Key
 
 * Convert your key.p12 file to key.pem and copy it to the `keys` folder:
-    
+
    `openssl pkcs12 -in keys/key.p12  -nocerts -nodes | openssl rsa -out keys/key.pem`
 
 * Enter Import Password: 'notasecret'
@@ -48,5 +48,3 @@ by the xTuple OAuth 2.0 extension.
 ### License
 
 [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
-
-Copyright (c) 2012-2013 xTuple [http://www.xtuple.com/](http://www.xtuple.com/)
